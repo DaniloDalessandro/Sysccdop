@@ -10,6 +10,11 @@ class InvalidManagementCenterData(APIException):
     default_detail = 'Os dados fornecidos para o Management Center são inválidos.'
     default_code = 'invalid_management_center_data'
 
+class ManagementCenterAlreadyExists(APIException):
+    status_code = 400
+    default_detail = 'O centro de gestão já existe.'
+    default_code = 'management_center_already_exists'
+
 class RequestingCenterNotFound(APIException):
     status_code = 404
     default_detail = 'Requesting Center não encontrado.'
