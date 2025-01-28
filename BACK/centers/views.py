@@ -1,8 +1,8 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Management_Center
-from .serializers import ManagementCenterSerializer
+from .models import Management_Center,Requesting_Center
+from .serializers import ManagementCenterSerializer,RequestingCenterSerializer
 from .utils.exceptions import ManagementCenterNotFound
 from .utils.messages import MANAGEMENT_CENTER_MESSAGES
 
@@ -55,3 +55,56 @@ class ManagementCenterDestroyAPIView(generics.DestroyAPIView):
         response = super().destroy(request, *args, **kwargs)
         response.data['message'] = MANAGEMENT_CENTER_MESSAGES['DELETE_SUCCESS']
         return response
+
+#============================================================================================================
+
+class RequestingCenterListAPIView(generics.ListAPIView):
+    queryset = Requesting_Center.objects.all()
+    serializer_class = RequestingCenterSerializer
+
+class RequestingCenterCreateAPIView(generics.CreateAPIView):
+    queryset = Requesting_Center.objects.all()
+    serializer_class = RequestingCenterSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        response.data['message'] = MANAGEMENT_CENTER_MESSAGES['CREATE_SUCCESS']
+        return response
+    
+class RequestingCenterRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = Requesting_Center.objects.all()
+    serializer_class = RequestingCenterSerializer
+
+    def get_object(self):
+        try:
+            return Requesting_Center.objects.get(pk=self.kwargs['pk'])
+        except Requesting_Center.DoesNotExist:
+            raise ManagementCenterNotFound
+
+class RequestingCenterUpdateAPIView(generics.UpdateAPIView):
+    queryset = Requesting_Center.objects.all()
+    serializer_class = RequestingCenterSerializer
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        response.data['message'] = MANAGEMENT_CENTER_MESSAGES['UPDATE_SUCCESS']
+        return response
+    
+class RequestingCenterDestroyAPIView(generics.DestroyAPIView):
+    queryset = Requesting_Center.objects.all()
+    serializer_class = RequestingCenterSerializer
+
+    def perform_destroy(self, instance):
+        instance.delete()
+
+    def destroy(self, request, *args, **kwargs):
+        response = super().destroy(request, *args, **kwargs)
+        response.data['message'] = MANAGEMENT_CENTER_MESSAGES['DELETE_SUCCESS']
+        return response
+
