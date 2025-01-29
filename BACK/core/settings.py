@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'centers',
     'sectors',
     'employees',
+    'budgets',
     
 ]
 

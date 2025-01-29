@@ -1,0 +1,16 @@
+BUDGETS_MESSAGES = {
+    'CREATE_SUCCESS': 'Budget created successfully',
+    'CREATE_ERROR': 'Error creating budget',
+    'UPDATE_SUCCESS': 'Budget updated successfully',
+    'UPDATE_ERROR': 'Error updating budget',
+    'DELETE_SUCCESS': 'Budget deleted successfully',
+    'DELETE_ERROR': 'Error deleting budget',
+    'NOT_FOUND': 'Budget not found',
+    'INVALID_DATA': 'Invalid data',
+    'INVALID_DATE': 'Invalid date',
+    'INVALID_AMOUNT': 'Invalid amount',
+    'INVALID_TYPE': 'Invalid type',
+    'INVALID_CATEGORY': 'Invalid category',
+    'INVALID_SUBCATEGORY': 'Invalid subcategory',
+    'INVALID_STATUS': 'Invalid status',
+}
