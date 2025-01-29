@@ -14,3 +14,25 @@ BUDGETS_MESSAGES = {
     'INVALID_SUBCATEGORY': 'Invalid subcategory',
     'INVALID_STATUS': 'Invalid status',
 }
+
+BUDGETS_MOVEMENTS_MESSAGES = {
+    'CREATE_SUCCESS': 'Budget movement created successfully',
+    'CREATE_ERROR': 'Error creating budget movement',
+    'UPDATE_SUCCESS': 'Budget movement updated successfully',
+    'UPDATE_ERROR': 'Error updating budget movement',
+    'DELETE_SUCCESS': 'Budget movement deleted successfully',
+    'DELETE_ERROR': 'Error deleting budget movement',
+    'NOT_FOUND': 'Budget movement not found',
+    'INVALID_DATA': 'Invalid data',
+    'INVALID_DATE': 'Invalid date',
+    'INVALID_AMOUNT': 'Invalid amount',
+    'INVALID_SOURCE': 'Invalid source',
+    'INVALID_DESTINATION': 'Invalid destination',
+    'INVALID_SOURCE_DESTINATION': 'Invalid source and destination',
+    'INVALID_SOURCE_AMOUNT': 'Invalid source amount',
+    'INVALID_DESTINATION_AMOUNT': 'Invalid destination amount',
+    'INVALID_SOURCE_AVAILABLE_AMOUNT': 'Invalid source available amount',
+    'INVALID_DESTINATION_AVAILABLE_AMOUNT': 'Invalid destination available amount',
+    'INVALID_SOURCE_CATEGORY': 'Invalid source category',
+    'INVALID_DESTINATION_CATEGORY': 'Invalid destination category',
+}

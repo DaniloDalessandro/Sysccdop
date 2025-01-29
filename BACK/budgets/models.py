@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from .utils.validators import validate_year
 from centers.models import Management_Center
 
 
@@ -9,7 +10,7 @@ class Budget(models.Model):
         ('CAPEX', 'CAPEX'),
         ('OPEX', 'OPEX'),
     ]
-    year = models.PositiveIntegerField()
+    year = models.PositiveIntegerField(validators=[validate_year])
     category = models.CharField(max_length=5, choices=BUDGET_CLASSES)
     management_center = models.ForeignKey(
         Management_Center, 
@@ -29,6 +30,7 @@ class Budget(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    
 
     def __str__(self):
         return f"{self.category} {self.year} - {self.management_center.name}"
@@ -37,6 +39,7 @@ class Budget(models.Model):
         unique_together = ['year', 'category', 'management_center']
         verbose_name = 'Orçamento'
         verbose_name_plural = 'Orçamentos'
+        ordering = ['-year', 'category', 'management_center__name']
 
 #===============================================================================
 
