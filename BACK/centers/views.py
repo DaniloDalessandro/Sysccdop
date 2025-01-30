@@ -13,14 +13,19 @@ class ManagementCenterListAPIView(generics.ListAPIView):
 class ManagementCenterCreateAPIView(generics.CreateAPIView):
     queryset = Management_Center.objects.all()
     serializer_class = ManagementCenterSerializer
-
+    
     def perform_create(self, serializer):
-        serializer.save()
+        user = self.request.user
+        if user.is_authenticated:
+            serializer.save(created_by=user, updated_by=user) 
+        else:
+            serializer.save()  
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
-        response.data['message'] = MANAGEMENT_CENTER_MESSAGES['CREATE_SUCCESS']
+        response.data['message'] = "Centro gestor criado com sucesso!"
         return response
+    
 
 class ManagementCenterRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Management_Center.objects.all()
@@ -67,7 +72,11 @@ class RequestingCenterCreateAPIView(generics.CreateAPIView):
     serializer_class = RequestingCenterSerializer
 
     def perform_create(self, serializer):
-        serializer.save()
+        user = self.request.user
+        if user.is_authenticated:
+            serializer.save(created_by=user, updated_by=user) 
+        else:
+            serializer.save()  
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
