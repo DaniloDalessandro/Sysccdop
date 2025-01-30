@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path('api/v1/budgetsline/', include('budgetline.urls')),
     path('api/v1/budgets/', include('budgets.urls')),
     path('api/v1/employees/', include('employees.urls')),
     path('api/v1/sectors/', include('sectors.urls')),

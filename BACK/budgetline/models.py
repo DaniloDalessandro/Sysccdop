@@ -27,21 +27,23 @@ class BudgetLine(models.Model):
     expense_type = models.CharField(
         max_length=100, 
         choices=EXPENSE_TYPE_CHOICES, 
-        verbose_name='Expense Type'
+        verbose_name='Tipo de Despesa'
     )
 
-    managing_cost_center = models.ForeignKey(
+    management_center = models.ForeignKey(
         Management_Center, 
         on_delete=models.SET_NULL, 
         null=True, 
         blank=True, 
-        related_name='budget_lines'
+        related_name='budget_lines',
+        verbose_name='Centro de Gestor'
     )
-    requesting_cost_center = models.ForeignKey(
+    requesting_center = models.ForeignKey(
         Requesting_Center, 
         on_delete=models.SET_NULL, 
         null=True, 
-        blank=True
+        blank=True,
+        verbose_name='Centro Solicitante'
     )
     summary_description = models.CharField(
         max_length=255, 
@@ -53,7 +55,7 @@ class BudgetLine(models.Model):
         max_length=80, 
         blank=True, 
         null=True, 
-        verbose_name='Object'
+        verbose_name='Objeto'
     )
 
     BUDGET_CLASSIFICATION_CHOICES = [
@@ -67,7 +69,8 @@ class BudgetLine(models.Model):
         max_length=100, 
         choices=BUDGET_CLASSIFICATION_CHOICES, 
         null=True, 
-        blank=True
+        blank=True,
+        verbose_name='Classificação Orçamentária'
     )
 
     possible_fiscal = models.ForeignKey(
@@ -167,4 +170,24 @@ class BudgetLine(models.Model):
     class Meta:
         verbose_name = 'Linha Orçamentária'
         verbose_name_plural = 'Linhas Orçamentárias'
+        ordering = ['-created_at']
+
+#=================================================================================================================
         
+class BudgetLineMovement(models.Model):
+    source_line = models.ForeignKey(BudgetLine, on_delete=models.CASCADE, related_name='outgoing_movements', verbose_name='Linha de Origem', null=True, blank=True)
+    destination_line = models.ForeignKey(BudgetLine, on_delete=models.CASCADE, related_name='incoming_movements', verbose_name='Linha de Destino', null=True, blank=True)
+    movement_amount = models.FloatField(validators=[MinValueValidator(0.01)], verbose_name='Valor da Movimentação')
+    movement_notes = models.TextField(max_length=400, blank=True, null=True, verbose_name='Motivo')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Atualizado em')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='budget_line_movements_created', verbose_name='Criado por')
+    updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='budget_line_movements_updated', verbose_name='Atualizado por')
+
+    def __str__(self):
+        return f'{self.movement_type} - {self.movement_amount}'
+
+    class Meta:
+        verbose_name = 'Movimentação'
+        verbose_name_plural = 'Movimentações'
+        ordering = ['-created_at']
