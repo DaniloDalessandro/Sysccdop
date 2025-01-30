@@ -5,9 +5,8 @@ from budgets.models import Budget
 from employees.models import Employee
 from centers.models import Management_Center, Requesting_Center
 
-
 class BudgetLine(models.Model):
-    budget = models.ForeignKey(Budget, on_delete=models.PROTECT, related_name='budget_lines')
+    budget = models.ForeignKey(Budget, on_delete=models.PROTECT, related_name='budget_lines',verbose_name='Orçamento')
     BUDGET_CATEGORY_CHOICES = [
         ('CAPEX', 'CAPEX'),
         ('OPEX', 'OPEX'),
@@ -17,7 +16,7 @@ class BudgetLine(models.Model):
         choices=BUDGET_CATEGORY_CHOICES, 
         blank=True, 
         null=True, 
-        verbose_name='Budget Type'
+        verbose_name='Categoria'
     )
 
     EXPENSE_TYPE_CHOICES = [
@@ -75,7 +74,9 @@ class BudgetLine(models.Model):
         Employee, 
         on_delete=models.PROTECT, 
         related_name='possible_contract_fiscal', 
-        verbose_name='Fiscal'
+        blank=True,
+        null=True,
+        verbose_name='Fiscal Principal'
     )
 
     CONTRACT_TYPE_CHOICES = [
@@ -88,7 +89,8 @@ class BudgetLine(models.Model):
         max_length=100, 
         choices=CONTRACT_TYPE_CHOICES, 
         blank=True, 
-        null=True
+        null=True,
+        verbose_name='Tipo de Contrato'
     )
 
     PROCUREMENT_TYPE_CHOICES = [
@@ -103,12 +105,14 @@ class BudgetLine(models.Model):
     ]
     probable_procurement_type = models.CharField(
         max_length=100, 
-        choices=PROCUREMENT_TYPE_CHOICES
+        choices=PROCUREMENT_TYPE_CHOICES,
+        verbose_name='Tipo de Aquisição'
     )
     
     budgeted_amount = models.FloatField(
         default=0, 
-        validators=[MinValueValidator(0.01)]
+        validators=[MinValueValidator(0.01)],
+        verbose_name='Valor Orçado'
     )
 
     PROCESS_STATUS_CHOICES = [
@@ -121,7 +125,8 @@ class BudgetLine(models.Model):
         max_length=100, 
         choices=PROCESS_STATUS_CHOICES, 
         blank=True, 
-        null=True
+        null=True,
+        verbose_name='Status do Processo'
     )
 
     CONTRACT_STATUS_CHOICES = [
@@ -140,19 +145,22 @@ class BudgetLine(models.Model):
         max_length=100, 
         choices=CONTRACT_STATUS_CHOICES, 
         blank=True, 
-        null=True
+        null=True,
+        verbose_name='Status do Contrato'
     )
 
     contract_notes = models.TextField(
         max_length=400, 
         blank=True, 
-        null=True
+        null=True,
+        verbose_name='Observações'
+    
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    
-
+    created_at = models.DateTimeField(auto_now_add=True,verbose_name='Criado em')
+    updated_at = models.DateTimeField(auto_now=True,verbose_name='Atualizado em')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='budget_lines_created',verbose_name='Criado por')
+    updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='budget_lines_updated',verbose_name='Atualizado por')   
+   
     def __str__(self):
         return self.summary_description or "Linha orçamentaria desconhecida"
 
