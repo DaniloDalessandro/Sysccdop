@@ -14,7 +14,6 @@ def custom_exception_handler(exc, context):
         elif isinstance(exc, BudgetAlreadyExists):
             response.data['message'] = BUDGETS_MESSAGES['ALREADY_EXISTS']
         elif isinstance(exc, InvalidBudgetStatus):
-            response.data['message'] = BUDGETS_MESSAGES['INVALID_STATUS']
-           
+            response.data['message'] = BUDGETS_MESSAGES['INVALID_STATUS']           
         
     return response

@@ -19,7 +19,8 @@ class BudgetCreateAPIView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         try:
-            serializer.save()
+            user = self.request.user
+            serializer.save(created_by=user, updated_by=user)
         except InvalidBudgetData:
             raise InvalidBudgetData(BUDGETS_MESSAGES['INVALID_DATA'])
         except BudgetAlreadyExists:
@@ -97,7 +98,8 @@ class BudgetMovementsCreateAPIView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         try:
-            serializer.save()
+            user = self.request.user
+            serializer.save(created_by=user, updated_by=user)
         except InvalidBudgetData:
             raise InvalidBudgetData(BUDGETS_MESSAGES['INVALID_DATA'])
         except BudgetAlreadyExists:
