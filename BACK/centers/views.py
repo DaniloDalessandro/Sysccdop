@@ -6,9 +6,13 @@ from .serializers import ManagementCenterSerializer,RequestingCenterSerializer
 from .utils.exceptions import ManagementCenterNotFound
 from .utils.messages import MANAGEMENT_CENTER_MESSAGES
 
+#=====================================================================================
+
 class ManagementCenterListAPIView(generics.ListAPIView):
     queryset = Management_Center.objects.all()
     serializer_class = ManagementCenterSerializer
+
+#=====================================================================================
 
 class ManagementCenterCreateAPIView(generics.CreateAPIView):
     queryset = Management_Center.objects.all()
@@ -25,7 +29,8 @@ class ManagementCenterCreateAPIView(generics.CreateAPIView):
         response = super().create(request, *args, **kwargs)
         response.data['message'] = "Centro gestor criado com sucesso!"
         return response
-    
+
+#=====================================================================================
 
 class ManagementCenterRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Management_Center.objects.all()
@@ -36,6 +41,8 @@ class ManagementCenterRetrieveAPIView(generics.RetrieveAPIView):
             return Management_Center.objects.get(pk=self.kwargs['pk'])
         except Management_Center.DoesNotExist:
             raise ManagementCenterNotFound
+
+#=====================================================================================
 
 class ManagementCenterUpdateAPIView(generics.UpdateAPIView):
     queryset = Management_Center.objects.all()
@@ -49,6 +56,8 @@ class ManagementCenterUpdateAPIView(generics.UpdateAPIView):
         response.data['message'] = MANAGEMENT_CENTER_MESSAGES['UPDATE_SUCCESS']
         return response
 
+#=====================================================================================
+
 class ManagementCenterDestroyAPIView(generics.DestroyAPIView):
     queryset = Management_Center.objects.all()
     serializer_class = ManagementCenterSerializer
@@ -61,11 +70,13 @@ class ManagementCenterDestroyAPIView(generics.DestroyAPIView):
         response.data['message'] = MANAGEMENT_CENTER_MESSAGES['DELETE_SUCCESS']
         return response
 
-#============================================================================================================
+#=====================================================================================
 
 class RequestingCenterListAPIView(generics.ListAPIView):
     queryset = Requesting_Center.objects.all()
     serializer_class = RequestingCenterSerializer
+
+#=====================================================================================
 
 class RequestingCenterCreateAPIView(generics.CreateAPIView):
     queryset = Requesting_Center.objects.all()
@@ -82,7 +93,9 @@ class RequestingCenterCreateAPIView(generics.CreateAPIView):
         response = super().create(request, *args, **kwargs)
         response.data['message'] = MANAGEMENT_CENTER_MESSAGES['CREATE_SUCCESS']
         return response
-    
+
+#=====================================================================================
+
 class RequestingCenterRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Requesting_Center.objects.all()
     serializer_class = RequestingCenterSerializer
@@ -92,6 +105,8 @@ class RequestingCenterRetrieveAPIView(generics.RetrieveAPIView):
             return Requesting_Center.objects.get(pk=self.kwargs['pk'])
         except Requesting_Center.DoesNotExist:
             raise ManagementCenterNotFound
+
+#=====================================================================================
 
 class RequestingCenterUpdateAPIView(generics.UpdateAPIView):
     queryset = Requesting_Center.objects.all()
@@ -104,7 +119,9 @@ class RequestingCenterUpdateAPIView(generics.UpdateAPIView):
         response = super().update(request, *args, **kwargs)
         response.data['message'] = MANAGEMENT_CENTER_MESSAGES['UPDATE_SUCCESS']
         return response
-    
+
+#=====================================================================================
+
 class RequestingCenterDestroyAPIView(generics.DestroyAPIView):
     queryset = Requesting_Center.objects.all()
     serializer_class = RequestingCenterSerializer

@@ -71,9 +71,9 @@ class ContractInstallment(models.Model):
 
 class ContractAmendment(models.Model):
     AMENDMENT_TYPES = [
-        ('ACRESCIMO_VALOR', 'Acréscimo de Valor'),
-        ('REDUCAO_VALOR', 'Redução de Valor'),
-        ('PRORROGACAO_PRAZO', 'Prorrogação de Prazo'),
+        ('Acréscimo de Valor', 'Acréscimo de Valor'),
+        ('Redução de Valor', 'Redução de Valor'),
+        ('Prorrogação de Prazo', 'Prorrogação de Prazo'),
     ]
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE, related_name='Contrato')
     description = models.CharField(max_length=255, verbose_name='Descrição')
