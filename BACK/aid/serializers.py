@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from .models import Aid
+from .models import Assistance
 
 class AidSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Aid
+        model = Assistance
         fields = '__all__'

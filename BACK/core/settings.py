@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'budgets',
     'budgetline',
     'aid',
+    'contracts',
     
 ]
 

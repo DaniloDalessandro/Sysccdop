@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Aid
+from .models import Assistance
 from .serializers import AidSerializer
 from .utils.exceptions import AidNotFound, AidAlreadyExists
 from .utils.messages import AID_MESSAGES
@@ -9,13 +9,13 @@ from .utils.messages import AID_MESSAGES
 #=======================================================================================================================
 
 class AidListAPIView(generics.ListAPIView):
-    queryset = Aid.objects.all()
+    queryset = Assistance.objects.all()
     serializer_class = AidSerializer
 
 #=======================================================================================================================
 
 class AidCreateAPIView(generics.CreateAPIView):
-    queryset = Aid.objects.all()
+    queryset = Assistance.objects.all()
     serializer_class = AidSerializer
     
     def perform_create(self, serializer):
@@ -33,19 +33,19 @@ class AidCreateAPIView(generics.CreateAPIView):
 #=======================================================================================================================
 
 class AidRetrieveAPIView(generics.RetrieveAPIView):
-    queryset = Aid.objects.all()
+    queryset = Assistance.objects.all()
     serializer_class = AidSerializer
 
     def get_object(self):
         try:
-            return Aid.objects.get(pk=self.kwargs['pk'])
-        except Aid.DoesNotExist:
+            return Assistance.objects.get(pk=self.kwargs['pk'])
+        except Assistance.DoesNotExist:
             raise AidNotFound
 
 #=======================================================================================================================
 
 class AidUpdateAPIView(generics.UpdateAPIView):
-    queryset = Aid.objects.all()
+    queryset = Assistance.objects.all()
     serializer_class = AidSerializer
 
     def perform_update(self, serializer):
@@ -59,7 +59,7 @@ class AidUpdateAPIView(generics.UpdateAPIView):
 #=======================================================================================================================
 
 class AidDestroyAPIView(generics.DestroyAPIView):
-    queryset = Aid.objects.all()
+    queryset = Assistance.objects.all()
     serializer_class = AidSerializer
 
     def perform_destroy(self, instance):
