@@ -82,6 +82,7 @@ class UserView(APIView):
 
     def put(self, request):
         name = request.data.get('name')
+        username = request.data.get('username')
         email = request.data.get('email')
         password = request.data.get('password')
         avatar = request.FILES.get('avatar')
@@ -107,6 +108,7 @@ class UserView(APIView):
 
         serializer = UserSerializer(request.user, data={
             "name": name,
+            "username": username,
             "email": email,
             "avatar": avatar or request.user.avatar
         })
