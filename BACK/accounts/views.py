@@ -18,14 +18,16 @@ from core.utils.exceptions import ValidationError
 import uuid
 
 
+#===============================================================================
+
 class SignInView(APIView, Authentication):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        email = request.data.get('email', '')
+        username = request.data.get('username', '')
         password = request.data.get('password', '')
 
-        signin = self.signin(email, password)
+        signin = self.signin(username=username, password=password)
 
         if not signin:
             raise AuthenticationFailed
@@ -38,19 +40,21 @@ class SignInView(APIView, Authentication):
             "access_token": str(access_token)
         })
 
+#===============================================================================
 
 class SignUpView(APIView, Authentication):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        username = request.data.get('username', '')
+        password = request.data.get('password', '')
         name = request.data.get('name', '')
         email = request.data.get('email', '')
-        password = request.data.get('password', '')
 
-        if not name or not email or not password:
+        if not username or not password or not name or not email:
             raise AuthenticationFailed
 
-        signup = self.signup(name, email, password)
+        signup = self.signup(username=username, password=password, name=name, email=email)
 
         if not signup:
             raise AuthenticationFailed
@@ -63,6 +67,7 @@ class SignUpView(APIView, Authentication):
             "access_token": str(access_token)
         })
 
+#===============================================================================
 
 class UserView(APIView):
     def get(self, request):
