@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
@@ -26,8 +27,14 @@ class ManagementCenterCreateAPIView(generics.CreateAPIView):
             serializer.save()  
 
     def create(self, request, *args, **kwargs):
-        response = super().create(request, *args, **kwargs)
-        response.data['message'] = "Centro gestor criado com sucesso!"
+        try:
+            response = super().create(request, *args, **kwargs)
+            response.data['message'] = MANAGEMENT_CENTER_MESSAGES['CREATE_SUCCESS']
+        except IntegrityError:
+            response = Response(
+                {'message': MANAGEMENT_CENTER_MESSAGES['ALREADY_EXISTS']},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         return response
 
 #=====================================================================================

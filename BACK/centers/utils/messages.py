@@ -1,10 +1,10 @@
 MANAGEMENT_CENTER_MESSAGES = {
-    'CREATE_SUCCESS': 'Management Center criado com sucesso.',
-    'UPDATE_SUCCESS': 'Management Center atualizado com sucesso.',
-    'DELETE_SUCCESS': 'Management Center excluído com sucesso.',
-    'NOT_FOUND': 'Management Center não encontrado.',
-    'INVALID_DATA': 'Os dados fornecidos para o Management Center são inválidos.',
-    'ALREADY_EXISTS': 'O centro já existe.',
+    'CREATE_SUCCESS': 'Centro gestor criado com sucesso.',
+    'UPDATE_SUCCESS': 'Centro gestor atualizado com sucesso.',
+    'DELETE_SUCCESS': 'Centro gestor excluído com sucesso.',
+    'NOT_FOUND': 'Centro gestor não encontrado.',
+    'INVALID_DATA': 'Os dados fornecidos para o Centro gestor são inválidos.',
+    'ALREADY_EXISTS': 'O centro gestor já existe.',
 }
 
 REQUESTING_CENTER_MESSAGES = {
