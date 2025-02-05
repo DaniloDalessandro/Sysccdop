@@ -4,39 +4,51 @@ from accounts.models import User
 from employees.models import Employee
 from budgetline.models import BudgetLine
 
+from django.db import models
+from django.utils import timezone
+from django.core.validators import MinValueValidator
+from accounts.models import User
+from services.services_contract import generate_protocol_number
+
 class Contract(models.Model):
     budget_line = models.ForeignKey(BudgetLine, on_delete=models.PROTECT, related_name='contracts')
     protocol_number = models.CharField(max_length=7, unique=True, blank=True, editable=False, verbose_name='Contrato')
-    signing_date = models.DateField(null=True, blank=True,verbose_name='Data de Assinatura')
-    expiration_date = models.DateField(null=True, blank=True,verbose_name='Data de Expiração')
+    signing_date = models.DateField(null=True, blank=True, verbose_name='Data de Assinatura')
+    expiration_date = models.DateField(null=True, blank=True, verbose_name='Data de Expiração')
     main_inspector = models.ForeignKey(Employee, on_delete=models.PROTECT, related_name='contracts_main_inspector', verbose_name='Fiscal Principal')
     substitute_inspector = models.ForeignKey(Employee, on_delete=models.PROTECT, related_name='contracts_substitute_inspector', verbose_name='Fiscal Substituto')
     PAYMENT_TYPE_CHOICES = [
-        ('PAGAMENTO ÚNICO','PAGAMENTO ÚNICO'),
-        ('PAGAMENTO ANUAL','PAGAMENTO ANUAL'),
-        ('PAGAMENTO SEMANAL','PAGAMENTO SEMANAL'),
-        ('PAGAMENTO MENSAL','PAGAMENTO MENSAL'),
-        ('PAGAMENTO QUIZENAL','PAGAMENTO QUINZENAL'),
-        ('PAGAMENTO TRIMESTRAL','PAGAMENTO TRIMESTRAL'),
-        ('PAGAMENTO SEMESTRAL','PAGAMENTO SEMESTRAL'),
-        ('PAGAMENTO SOB DEMANDA','PAGAMENTO SOB DEMANDA'),
+        ('PAGAMENTO ÚNICO', 'PAGAMENTO ÚNICO'),
+        ('PAGAMENTO ANUAL', 'PAGAMENTO ANUAL'),
+        ('PAGAMENTO SEMANAL', 'PAGAMENTO SEMANAL'),
+        ('PAGAMENTO MENSAL', 'PAGAMENTO MENSAL'),
+        ('PAGAMENTO QUIZENAL', 'PAGAMENTO QUINZENAL'),
+        ('PAGAMENTO TRIMESTRAL', 'PAGAMENTO TRIMESTRAL'),
+        ('PAGAMENTO SEMESTRAL', 'PAGAMENTO SEMESTRAL'),
+        ('PAGAMENTO SOB DEMANDA', 'PAGAMENTO SOB DEMANDA'),
     ]
-    payment_nature = models.CharField(choices=PAYMENT_TYPE_CHOICES, max_length=30,verbose_name='Natureza do Pagamento')
-    description = models.CharField(max_length=255,verbose_name='Descrição')
-    original_value = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)],verbose_name='Valor Original')
-    current_value = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)], default=0.0,verbose_name='Valor Atual')
+    payment_nature = models.CharField(choices=PAYMENT_TYPE_CHOICES, max_length=30, verbose_name='Natureza do Pagamento')
+    description = models.CharField(max_length=255, verbose_name='Descrição')
+    original_value = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)], verbose_name='Valor Original')
+    current_value = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)], default=0.0, verbose_name='Valor Atual')
     start_date = models.DateField(verbose_name='Data de Início')
-    end_date = models.DateField(null=True, blank=True,verbose_name='Data de Término')
-    STATUS_CONTRACTS = [('ATIVO','ATIVO'), ('ENCERRADO','ENCERRADO'),]
-    status = models.CharField(max_length=30, choices=STATUS_CONTRACTS, default='ATIVO',verbose_name='Status')
+    end_date = models.DateField(null=True, blank=True, verbose_name='Data de Término')
+    STATUS_CONTRACTS = [('ATIVO', 'ATIVO'), 
+                        ('ENCERRADO', 'ENCERRADO')]
+    status = models.CharField(max_length=30, choices=STATUS_CONTRACTS, default='ATIVO', verbose_name='Status')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Atualizado em')
     created_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name='contracts_created', verbose_name='Criado por')
     updated_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name='contracts_updated', verbose_name='Atualizado por')
 
+    def save(self, *args, **kwargs):
+        if not self.protocol_number:
+            self.protocol_number = generate_protocol_number()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.protocol_number
-    
+
     class Meta:
         verbose_name = 'Contrato'
         verbose_name_plural = 'Contratos'
