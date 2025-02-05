@@ -27,6 +27,8 @@ class Contract(models.Model):
     current_value = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)], default=0.0,verbose_name='Valor Atual')
     start_date = models.DateField(verbose_name='Data de Início')
     end_date = models.DateField(null=True, blank=True,verbose_name='Data de Término')
+    STATUS_CONTRACTS = [('ATIVO','ATIVO'), ('ENCERRADO','ENCERRADO'),]
+    status = models.CharField(max_length=30, choices=STATUS_CONTRACTS, default='ATIVO',verbose_name='Status')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Atualizado em')
     created_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name='contracts_created', verbose_name='Criado por')

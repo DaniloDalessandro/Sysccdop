@@ -19,8 +19,9 @@ class EmployeeCreateAPIView(generics.CreateAPIView):
     serializer_class = EmployeeSerializer
 
     def perform_create(self, serializer):
-        serializer.save()
-
+        user = self.request.user
+        serializer.save(created_by=user, updated_by=user)
+        
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
         response.data['message'] = EMPLOYEES_MESSAGES['CREATE_SUCCESS']

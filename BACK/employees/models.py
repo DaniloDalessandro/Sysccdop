@@ -1,5 +1,6 @@
 from django.db import models
 from sectors.models import Direction, Management, Coordination
+from accounts.models import User
 
 class Employee(models.Model):
     full_name = models.CharField(max_length=100, null=True)
@@ -9,6 +10,15 @@ class Employee(models.Model):
     coordination = models.ForeignKey(Coordination, on_delete=models.SET_NULL, null=True)
     cpf = models.CharField(max_length=11)
     email = models.EmailField(max_length=50, null=True, blank=True)
+    STATUS = [
+        ('ATIVO', 'Ativo'),
+        ('INATIVO', 'Inativo'),
+    ]
+    status = models.CharField(max_length=7, choices=STATUS, default='ATIVO')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='employees_created', verbose_name='Criado por')
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='employees_updated', verbose_name='Atualizado por')
 
     def __str__(self):
         return self.full_name or "Colaborador sem nome"

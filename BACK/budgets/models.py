@@ -31,6 +31,11 @@ class Budget(models.Model):
         default=0.0,
         verbose_name='Valor Disponível'
     )
+    STATUS = [
+        ('ATIVO', 'Ativo'),
+        ('INATIVO', 'Inativo'),
+    ]
+    status = models.CharField(max_length=7, choices=STATUS, default='ATIVO', verbose_name='Status')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Atualizado em')
     created_by = models.ForeignKey(User, related_name='budgets_created', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Criado por')

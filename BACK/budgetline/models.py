@@ -73,13 +73,21 @@ class BudgetLine(models.Model):
         verbose_name='Classificação Orçamentária'
     )
 
-    possible_fiscal = models.ForeignKey(
+    main_fiscal = models.ForeignKey(
         Employee, 
         on_delete=models.PROTECT, 
-        related_name='possible_contract_fiscal', 
+        related_name='main_contract_fiscal', 
         blank=True,
         null=True,
         verbose_name='Fiscal Principal'
+    )
+    secondary_fiscal = models.ForeignKey(
+        Employee, 
+        on_delete=models.PROTECT, 
+        related_name='secondary_contract_fiscal', 
+        blank=True,
+        null=True,
+        verbose_name='Fiscal Substituto'
     )
 
     CONTRACT_TYPE_CHOICES = [
