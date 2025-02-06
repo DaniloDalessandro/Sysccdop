@@ -1,8 +1,8 @@
 from django.utils import timezone
-from contracts.models import Contract
 
 def generate_protocol_number():
-    year_suffix = timezone.now().year % 100  # Pega o ano atual e pega os dois últimos dígitos
+    from contracts.models import Contract  
+    year_suffix = timezone.now().year % 100  
     last_protocol = Contract.objects.filter(protocol_number__endswith=f"/{year_suffix}").order_by('id').last()
     
     if last_protocol:

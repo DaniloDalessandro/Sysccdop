@@ -1,7 +1,6 @@
 from django.db import models
 from sectors.models import Direction, Management, Coordination
 from accounts.models import User
-from services.services_contract import generate_protocol_number
 
 class Employee(models.Model):
     full_name = models.CharField(max_length=100, null=True)
@@ -21,11 +20,7 @@ class Employee(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='employees_created', verbose_name='Criado por')
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='employees_updated', verbose_name='Atualizado por')
 
-    def save(self, *args, **kwargs):
-        if not self.protocol_number:
-            self.protocol_number = generate_protocol_number()
-        super().save(*args, **kwargs)
-
+    
     def __str__(self):
         return self.full_name or "Colaborador sem nome"
     

@@ -3,12 +3,8 @@ from django.core.validators import MinValueValidator
 from accounts.models import User
 from employees.models import Employee
 from budgetline.models import BudgetLine
-
-from django.db import models
 from django.utils import timezone
-from django.core.validators import MinValueValidator
-from accounts.models import User
-from services.services_contract import generate_protocol_number
+from .services.services_contract import generate_protocol_number
 
 class Contract(models.Model):
     budget_line = models.ForeignKey(BudgetLine, on_delete=models.PROTECT, related_name='contracts')
