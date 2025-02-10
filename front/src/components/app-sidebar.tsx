@@ -100,7 +100,7 @@ const data = {
       items: [
         {
           title: "Genesis",
-          url: "#",
+          url: "/centros/solicitante",
         },
         {
           title: "Explorer",
