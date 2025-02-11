@@ -29,8 +29,8 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Danilo Costa",
+    email: "danilodalessandro08@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
@@ -59,6 +59,20 @@ const data = {
       
     },
     {
+      title: "Contratos",
+      url: "/",
+      icon: SquareTerminal,
+      isActive: true,
+      
+    },
+    {
+      title: "Auxilios",
+      url: "/",
+      icon: SquareTerminal,
+      isActive: true,
+      
+    },
+    {
       title: "Centros",
       url: "/centros",
       icon: Bot,
@@ -74,24 +88,7 @@ const data = {
       title: "Settings",
       url: "#",
       icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
+      
     },
   ]
 }
