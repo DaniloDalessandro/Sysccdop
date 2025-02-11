@@ -30,8 +30,8 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Danilo Costa",
+    email: "danilodalessandro08@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
@@ -39,35 +39,22 @@ const data = {
       name: "Minerva",
       logo: FileCheck2,
       plan: "Gestão de Contratos",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
+    }    
   ],
   navMain: [
+    {
+      title: "Dashboard",
+      url: "#",
+      icon: ScrollText,
+      isActive: true,
+      
+    },
     {
       title: "Contratos",
       url: "#",
       icon: ScrollText,
       isActive: true,
-      items: [
-        {
-          title: "Adicionar contrato",
-          url: "#",
-        },
-        {
-          title: "Buscar contrato",
-          url: "#",
-        },
-       
-      ],
+      
     },
     {
       title: "Auxilios",
