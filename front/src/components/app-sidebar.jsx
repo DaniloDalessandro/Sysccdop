@@ -85,8 +85,8 @@ const data = {
       
     },
     {
-      title: "Settings",
-      url: "#",
+      title: "Colaboradores",
+      url: "/colaboradores",
       icon: Settings2,
       
     },

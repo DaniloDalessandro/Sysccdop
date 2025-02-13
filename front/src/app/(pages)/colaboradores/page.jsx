@@ -2,10 +2,7 @@ export default () => {
     
     return (
         <div>
-        <h1>Centros</h1>   
-       
-        
-       
+        <h1>Colaboradores</h1>         
 
         
         </div>
