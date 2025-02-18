@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Plus, Settings } from "lucide-react";
+import { Plus, Settings, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Componente da Toolbar
 function Toolbar({ title, table }) {
@@ -74,6 +74,11 @@ export function DataTable({ columns, data, title }) {
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
+    initialState: {
+      pagination: {
+        pageSize: 5, // Define o tamanho da página como 5 registros
+      },
+    },
     state: {
       sorting,
       columnVisibility,
@@ -125,6 +130,25 @@ export function DataTable({ columns, data, title }) {
               )}
             </TableBody>
           </Table>
+        </div>
+        {/* Controles de Paginação */}
+        <div className="flex items-center justify-end space-x-2 py-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </div>
       </CardContent>
     </Card>
