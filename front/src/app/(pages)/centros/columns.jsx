@@ -26,6 +26,7 @@ export const columns = [
   {
     accessorKey: "amount",
     header: "Amount",
+    
   },
   {
     accessorKey: "amount",
