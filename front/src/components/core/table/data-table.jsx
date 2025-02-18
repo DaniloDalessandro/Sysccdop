@@ -87,7 +87,7 @@ export function DataTable({ columns, data, title }) {
         <Toolbar title={title} table={table} selectedRow={selectedRow} />
       </CardHeader>
       <CardContent>
-        <div className="rounded-lg border shadow-sm">
+        <div className="border shadow-sm"> {/* Removed rounded-lg */}
           <Table>
             <TableHeader className="bg-gray-50">
               {table.getHeaderGroups().map((headerGroup) => (
