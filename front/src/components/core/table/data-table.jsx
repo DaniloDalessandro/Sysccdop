@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-
 import React from "react";
 import {
   flexRender,
@@ -45,6 +44,7 @@ function Toolbar({ title, table, selectedRow }) {
                   className="capitalize"
                   checked={column.getIsVisible()}
                   onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                  keepOpen={true}
                 >
                   {column.id}
                 </DropdownMenuCheckboxItem>
@@ -56,8 +56,7 @@ function Toolbar({ title, table, selectedRow }) {
   );
 }
 
-export function DataTable({ columns, data, title }) {
-  const [sorting, setSorting] = React.useState([]);
+export function DataTable({ columns, data, title, filters, sorting }) {
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [pageSize, setPageSize] = React.useState(5);
   const [selectedRow, setSelectedRow] = React.useState(null);
@@ -68,26 +67,28 @@ export function DataTable({ columns, data, title }) {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    onSortingChange: setSorting,
+    onSortingChange: sorting,
     onColumnVisibilityChange: setColumnVisibility,
     initialState: {
       pagination: {
         pageSize: 5,
       },
+      sorting: sorting,
     },
     state: {
       sorting,
       columnVisibility,
     },
+    globalFilter: filters, // Adicionando filtros globais
   });
 
   return (
-    <Card className="shadow-lg">
-      <CardHeader className="pb-2"> {/* Adjusted padding-bottom */}
+    <Card className="shadow-lg pb-0.5">
+      <CardHeader className="pb-1">
         <Toolbar title={title} table={table} selectedRow={selectedRow} />
       </CardHeader>
       <CardContent>
-        <div className="border shadow-sm"> {/* Removed rounded-lg */}
+        <div className="border shadow-sm">
           <Table>
             <TableHeader className="bg-gray-50">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -102,7 +103,7 @@ export function DataTable({ columns, data, title }) {
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody>
+            <TableBody className="max-h-64 overflow-y-auto">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow
@@ -129,7 +130,7 @@ export function DataTable({ columns, data, title }) {
           </Table>
         </div>
         {/* Controles de Paginação */}
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between py-1">
           <span className="text-sm text-gray-600">
             Total de registros: {data.length}
           </span>

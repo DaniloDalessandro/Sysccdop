@@ -102,13 +102,22 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto py-10">
-      <DataTable
-        columns={columns}
-        data={data}
-        onAdd={handleAdd}
-        title="Centro de Custo Gestor"
-      />
+    <div className="container mx-auto py-1 px-2">
+      
+      <div className="space-y-2">
+        <DataTable
+          columns={columns}
+          data={data}
+          onAdd={handleAdd}
+          title="Centro de Custo Gestor"
+        />
+        <DataTable
+          columns={columns}
+          data={data}
+          onAdd={handleAdd}
+          title="Centro de Custo Solicitante"
+        />
+      </div>
     </div>
   );
 }
