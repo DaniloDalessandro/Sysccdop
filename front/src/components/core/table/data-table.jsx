@@ -35,16 +35,10 @@ function Toolbar({ title, table }) {
     <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-100">
       <h2 className="text-xl font-bold text-primary">{title}</h2>
       <div className="flex items-center gap-4">
-        <Button variant="outline" size="sm" className="flex items-center gap-2">
-          <Plus className="h-5 w-5" />
-          Adicionar
-        </Button>
+        <Plus className="h-6 w-6 cursor-pointer" />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <Settings className="h-5 w-5" />
-              Configurações
-            </Button>
+            <Settings className="h-6 w-6 cursor-pointer" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {table
@@ -93,7 +87,7 @@ export function DataTable({ columns, data, title }) {
 
   return (
     <Card className="shadow-lg">
-      <CardHeader>
+      <CardHeader className="pb-2"> {/* Adjusted padding-bottom */}
         <Toolbar title={title} table={table} />
       </CardHeader>
       <CardContent>
