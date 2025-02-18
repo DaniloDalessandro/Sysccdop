@@ -1,18 +1,37 @@
 "use client";
 
 import { DataTable } from "@/components/core/table/data-table";
-import { columns } from "@/app/(pages)/centros/columns";
+import { columns } from "./columns";
 
 const data = [
-  { status: "Active", email: "user1@example.com", amount: 100 },
-  { status: "Inactive", email: "user2@example.com", amount: 200 },
+  {
+    id: "1",
+    status: "Ativo",
+    email: "exemplo1@email.com",
+    amount: 100,
+  },
+  {
+    id: "2",
+    status: "Inativo",
+    email: "exemplo2@email.com",
+    amount: 200,
+  },
+  // Adicione mais dados aqui...
 ];
 
-export default function CentrosPage() {
+export default function Home() {
+  const handleAdd = () => {
+    alert("Adicionar novo item!");
+  };
+
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Centros</h1>
-      <DataTable columns={columns} data={data} />
+    <div className="container mx-auto py-10">
+      <DataTable
+        columns={columns}
+        data={data}
+        onAdd={handleAdd}
+        title="Centro de Custo Gestor"
+      />
     </div>
   );
 }
