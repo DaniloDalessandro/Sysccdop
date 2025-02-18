@@ -6,46 +6,27 @@ import { Button } from "@/components/ui/button";
 
 export const columns = [
   {
+    accessorKey: "nome",
+    header: "Nome",
+  },
+  {
+    accessorKey: "criadoEm",
+    header: "Criado em",
+  },
+  {
+    accessorKey: "criadoPor",
+    header: "Criado por",
+  },
+  {
+    accessorKey: "atualizadoEm",
+    header: "Atualizado em",
+  },
+  {
+    accessorKey: "atualizadoPor",
+    header: "Atualizado por",
+  },
+  {
     accessorKey: "status",
     header: "Status",
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-    
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
   },
 ];
