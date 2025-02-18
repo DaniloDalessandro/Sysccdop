@@ -1,4 +1,4 @@
-"use client";
+import { Button } from "@/components/ui/button";
 
 import React from "react";
 import {
@@ -18,24 +18,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Plus, Settings, ChevronLeft, ChevronRight, Edit } from "lucide-react";
 
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Plus, Settings, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Componente da Toolbar
-function Toolbar({ title, table }) {
+function Toolbar({ title, table, selectedRow }) {
   return (
     <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-100">
       <h2 className="text-xl font-bold text-primary">{title}</h2>
       <div className="flex items-center gap-4">
         <Plus className="h-6 w-6 cursor-pointer" />
+        {selectedRow && <Edit className="h-6 w-6 cursor-pointer" />}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Settings className="h-6 w-6 cursor-pointer" />
@@ -65,6 +60,7 @@ export function DataTable({ columns, data, title }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [pageSize, setPageSize] = React.useState(5);
+  const [selectedRow, setSelectedRow] = React.useState(null);
 
   const table = useReactTable({
     data,
@@ -88,7 +84,7 @@ export function DataTable({ columns, data, title }) {
   return (
     <Card className="shadow-lg">
       <CardHeader className="pb-2"> {/* Adjusted padding-bottom */}
-        <Toolbar title={title} table={table} />
+        <Toolbar title={title} table={table} selectedRow={selectedRow} />
       </CardHeader>
       <CardContent>
         <div className="rounded-lg border shadow-sm">
@@ -112,7 +108,8 @@ export function DataTable({ columns, data, title }) {
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
-                    className="hover:bg-gray-50 transition-colors"
+                    className={`hover:bg-gray-50 transition-colors ${selectedRow === row.id ? "bg-gray-200" : ""}`}
+                    onClick={() => setSelectedRow(selectedRow === row.id ? null : row.id)}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
@@ -124,7 +121,7 @@ export function DataTable({ columns, data, title }) {
               ) : (
                 <TableRow>
                   <TableCell colSpan={columns.length} className="h-24 text-center">
-                    Nenhum resultado encontrado.
+                    No results found.
                   </TableCell>
                 </TableRow>
               )}
