@@ -1,24 +1,8 @@
-import { Button } from "@/components/ui/button";
 import React from "react";
-import {
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
+import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from "@tanstack/react-table"; // Importação atualizada
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Settings, ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
-
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
@@ -61,8 +45,8 @@ function Toolbar({ title, table, selectedRow }) {
   );
 }
 
-export function DataTable({ columns, data, title, filters, sorting }) {
-  const [columnVisibility, setColumnVisibility] = React.useState({});
+export function DataTable({ columns, data, title, filters, sorting, defaultColumns, pageSize }) {
+  const [columnVisibility, setColumnVisibility] = React.useState(defaultColumns || {});
   const [selectedRow, setSelectedRow] = React.useState(null);
 
   const table = useReactTable({
@@ -75,15 +59,16 @@ export function DataTable({ columns, data, title, filters, sorting }) {
     onColumnVisibilityChange: setColumnVisibility,
     initialState: {
       pagination: {
-        pageSize: 5,
+        pageSize: pageSize || 5,
       },
-      sorting: sorting,
+      sorting,
+      columnVisibility,
     },
     state: {
       sorting,
       columnVisibility,
     },
-    globalFilter: filters, // Adicionando filtros globais
+    globalFilter: filters,
   });
 
   return (
@@ -99,9 +84,7 @@ export function DataTable({ columns, data, title, filters, sorting }) {
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <TableHead key={header.id} className="font-semibold">
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   ))}
                 </TableRow>

@@ -109,13 +109,15 @@ export default function Home() {
           columns={columns}
           data={data}
           onAdd={handleAdd}
-          title="Centro de Custo Gestor"
+          title="Centro de Custo Gestor"                 
+          pageSize={5}
         />
         <DataTable
           columns={columns}
           data={data}
           onAdd={handleAdd}
           title="Centro de Custo Solicitante"
+          pageSize={5}
         />
       </div>
     </div>
