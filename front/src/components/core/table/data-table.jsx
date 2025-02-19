@@ -17,7 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Plus, Settings, ChevronLeft, ChevronRight, Edit } from "lucide-react";
+import { Plus, Settings, ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
 
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
@@ -29,7 +29,12 @@ function Toolbar({ title, table, selectedRow }) {
       <h2 className="text-xl font-bold text-primary">{title}</h2>
       <div className="flex items-center gap-4">
         <Plus className="h-6 w-6 cursor-pointer" />
-        {selectedRow && <Edit className="h-6 w-6 cursor-pointer" />}
+        {selectedRow && (
+          <>
+            <Edit className="h-6 w-6 cursor-pointer" />
+            <Trash className="h-6 w-6 cursor-pointer" />
+          </>
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Settings className="h-6 w-6 cursor-pointer" />
@@ -58,7 +63,6 @@ function Toolbar({ title, table, selectedRow }) {
 
 export function DataTable({ columns, data, title, filters, sorting }) {
   const [columnVisibility, setColumnVisibility] = React.useState({});
-  const [pageSize, setPageSize] = React.useState(5);
   const [selectedRow, setSelectedRow] = React.useState(null);
 
   const table = useReactTable({
@@ -134,20 +138,6 @@ export function DataTable({ columns, data, title, filters, sorting }) {
           <span className="text-sm text-gray-600">
             Total de registros: {data.length}
           </span>
-          <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-600">Exibir:</label>
-            <select
-              className="border rounded px-2 py-1"
-              value={pageSize}
-              onChange={(e) => setPageSize(Number(e.target.value))}
-            >
-              {[5, 10, 25, 50, 100].map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-          </div>
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
