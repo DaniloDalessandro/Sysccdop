@@ -1,13 +1,13 @@
 import React from "react";
-import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from "@tanstack/react-table"; // Importação atualizada
+import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Plus, Settings, ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
+import { Plus, Settings, ChevronLeft, ChevronRight, Edit, Trash, Filter } from "lucide-react";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 // Componente da Toolbar
-function Toolbar({ title, table, selectedRow }) {
+function Toolbar({ title, table, selectedRow, toggleStatusFilter, statusFilter }) {
   return (
     <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-100">
       <h2 className="text-xl font-bold text-primary">{title}</h2>
@@ -19,6 +19,7 @@ function Toolbar({ title, table, selectedRow }) {
             <Trash className="h-6 w-6 cursor-pointer" />
           </>
         )}
+        <Filter className="h-6 w-6 cursor-pointer" onClick={toggleStatusFilter} />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Settings className="h-6 w-6 cursor-pointer" />
@@ -48,9 +49,12 @@ function Toolbar({ title, table, selectedRow }) {
 export function DataTable({ columns, data, title, filters, sorting, defaultColumns, pageSize }) {
   const [columnVisibility, setColumnVisibility] = React.useState(defaultColumns || {});
   const [selectedRow, setSelectedRow] = React.useState(null);
+  const [statusFilter, setStatusFilter] = React.useState("Ativo");
+
+  const filteredData = statusFilter === "Todos" ? data : data.filter((row) => row.status === statusFilter);
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -71,10 +75,14 @@ export function DataTable({ columns, data, title, filters, sorting, defaultColum
     globalFilter: filters,
   });
 
+  const toggleStatusFilter = () => {
+    setStatusFilter((prevStatus) => (prevStatus === "Ativo" ? "Inativo" : prevStatus === "Inativo" ? "Todos" : "Ativo"));
+  };
+
   return (
     <Card className="shadow-lg pb-0.5">
       <CardHeader className="pb-1">
-        <Toolbar title={title} table={table} selectedRow={selectedRow} />
+        <Toolbar title={title} table={table} selectedRow={selectedRow} toggleStatusFilter={toggleStatusFilter} statusFilter={statusFilter} />
       </CardHeader>
       <CardContent>
         <div className="border shadow-sm">
@@ -119,7 +127,7 @@ export function DataTable({ columns, data, title, filters, sorting, defaultColum
         {/* Controles de Paginação */}
         <div className="flex items-center justify-between py-1">
           <span className="text-sm text-gray-600">
-            Total de registros: {data.length}
+            Total de registros: {filteredData.length}
           </span>
           <div className="flex items-center gap-2">
             <Button
