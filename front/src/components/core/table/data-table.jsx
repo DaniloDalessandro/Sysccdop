@@ -46,12 +46,12 @@ function Toolbar({ title, table, selectedRow, toggleStatusFilter, statusFilter }
   );
 }
 
-export function DataTable({ columns, data, title, filters, sorting, defaultColumns, pageSize }) {
+export function DataTable({ columns, data, title, filters, sorting, defaultColumns, pageSize,filterableColumns, sortableColumns }) {
   const [columnVisibility, setColumnVisibility] = React.useState(defaultColumns || {});
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [statusFilter, setStatusFilter] = React.useState("Ativo");
 
-  const filteredData = statusFilter === "Todos" ? data : data.filter((row) => row.status === statusFilter);
+  const filteredData = statusFilter === "Todos" ? data.slice(0, pageSize) : data.filter((row) => row.status === statusFilter);
 
   const table = useReactTable({
     data: filteredData,
@@ -63,7 +63,8 @@ export function DataTable({ columns, data, title, filters, sorting, defaultColum
     onColumnVisibilityChange: setColumnVisibility,
     initialState: {
       pagination: {
-        pageSize: pageSize || 5,
+        pageSize: pageSize,
+        
       },
       sorting,
       columnVisibility,
@@ -76,7 +77,7 @@ export function DataTable({ columns, data, title, filters, sorting, defaultColum
   });
 
   const toggleStatusFilter = () => {
-    setStatusFilter((prevStatus) => (prevStatus === "Ativo" ? "Inativo" : prevStatus === "Inativo" ? "Todos" : "Ativo"));
+    setStatusFilter((prevStatus) => (prevStatus === "Ativo" ? "Todos" : "Ativo"));
   };
 
   return (

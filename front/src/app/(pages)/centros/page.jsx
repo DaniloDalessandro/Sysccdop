@@ -111,6 +111,7 @@ export default function Home() {
           onAdd={handleAdd}
           title="Centro de Custo Gestor"                 
           pageSize={5}
+          
         />
         <DataTable
           columns={columns}
