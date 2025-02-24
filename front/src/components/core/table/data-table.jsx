@@ -7,7 +7,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 // Componente da Toolbar
-function Toolbar({ title, table, selectedRow, toggleStatusFilter, statusFilter }) {
+function Toolbar({ title, table, selectedRow, toggleStatusFilter }) {
   return (
     <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-100">
       <h2 className="text-xl font-bold text-primary">{title}</h2>
@@ -46,12 +46,12 @@ function Toolbar({ title, table, selectedRow, toggleStatusFilter, statusFilter }
   );
 }
 
-export function DataTable({ columns, data, title, filters, sorting, defaultColumns, pageSize,filterableColumns, sortableColumns }) {
+export function DataTable({ columns, data, title, filters, sorting, defaultColumns, pageSize }) {
   const [columnVisibility, setColumnVisibility] = React.useState(defaultColumns || {});
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [statusFilter, setStatusFilter] = React.useState("Ativo");
 
-  const filteredData = statusFilter === "Todos" ? data.slice(0, pageSize) : data.filter((row) => row.status === statusFilter);
+  const filteredData = statusFilter === "Todos" ? data : data.filter((row) => row.status === statusFilter);
 
   const table = useReactTable({
     data: filteredData,
