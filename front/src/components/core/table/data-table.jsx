@@ -7,12 +7,12 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 // Componente da Toolbar
-function Toolbar({ title, table, selectedRow, toggleStatusFilter }) {
+function Toolbar({ title, table, selectedRow, toggleStatusFilter,onAdd }) {
   return (
     <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-100">
       <h2 className="text-xl font-bold text-primary">{title}</h2>
       <div className="flex items-center gap-4">
-        <Plus className="h-6 w-6 cursor-pointer" />
+        <Plus className="h-6 w-6 cursor-pointer" onClick={onAdd} />
         {selectedRow && (
           <>
             <Edit className="h-6 w-6 cursor-pointer" />
@@ -46,7 +46,7 @@ function Toolbar({ title, table, selectedRow, toggleStatusFilter }) {
   );
 }
 
-export function DataTable({ columns, data, title, filters, sorting, defaultColumns, pageSize }) {
+export function DataTable({ columns, data, title, filters, sorting, defaultColumns, pageSize, onAdd }) {
   const [columnVisibility, setColumnVisibility] = React.useState(defaultColumns || {});
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [statusFilter, setStatusFilter] = React.useState("Ativo");
@@ -83,7 +83,7 @@ export function DataTable({ columns, data, title, filters, sorting, defaultColum
   return (
     <Card className="shadow-lg pb-0.5">
       <CardHeader className="pb-1">
-        <Toolbar title={title} table={table} selectedRow={selectedRow} toggleStatusFilter={toggleStatusFilter} statusFilter={statusFilter} />
+        <Toolbar title={title} table={table} selectedRow={selectedRow} toggleStatusFilter={toggleStatusFilter} statusFilter={statusFilter} onAdd={onAdd} />
       </CardHeader>
       <CardContent>
         <div className="border shadow-sm">

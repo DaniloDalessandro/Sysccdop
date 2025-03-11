@@ -2,6 +2,9 @@
 
 import { DataTable } from "@/components/core/table/data-table";
 import { columns } from "./columns";
+import { useState } from "react";
+import { set } from "react-hook-form";
+import Form from "./form";
 
 const data = [
   {
@@ -125,13 +128,20 @@ const data = [
 ];
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+  const [colaborador, setColaborador] = useState(null);
   const handleAdd = () => {
-    alert("Adicionar novo item!");
+    setOpen(!open);
+
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   return (
     <div className="container mx-auto py-1 px-2">
-      
+      <Form open={open} handleClose={handleClose} />
       <div className="space-y-2">
         <DataTable
           columns={columns}
