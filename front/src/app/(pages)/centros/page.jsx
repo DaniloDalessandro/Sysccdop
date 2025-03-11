@@ -1,7 +1,10 @@
 "use client";
 
 import { DataTable } from "@/components/core/table/data-table";
-import { columns } from "./columns";
+import { columns } from "./columnsolicitante";
+import {columns} from "./columnsgestor";
+import Formgestor from "./formgestor";
+import Formsolicitante from "./formsolicitante";
 
 const data = [
   {
@@ -97,26 +100,45 @@ const data = [
 ];
 
 export default function Home() {
-  const handleAdd = () => {
-    alert("Adicionar novo item!");
+  const [openGestor, setOpenGestor] = useState(false);
+  const [openSolicitante, setOpenSolicitante] = useState(false);
+  
+  const handleAddGestor = () => {
+    setOpenGestor(true);   
+
   };
+
+  const handleAddSolicitante = () => {
+    setOpenSolicitante(true);   
+
+  };
+
+
+  const handleCloseGestor = () => {
+    setOpenGestor(false);
+  }
+
+  const handleCloseSolicitante = () => {
+    setOpenSolicitante(false);
+  }
 
   return (
     <div className="container mx-auto py-1 px-2">
-      
+      <Formgestor open={openGestor} handleClose={handleCloseGestor} />
+      <Formsolicitante open={openSolicitante} handleClose={handleCloseSolicitante} />
       <div className="space-y-2">
         <DataTable
-          columns={columns}
+          columns={columnsgestor}
           data={data}
-          onAdd={handleAdd}
+          onAdd={handleAddGestor}
           title="Centro de Custo Gestor"                 
           pageSize={5}
           
         />
         <DataTable
-          columns={columns}
+          columns={columnssolicitante}
           data={data}
-          onAdd={handleAdd}
+          onAdd={handleAddSolicitante}
           title="Centro de Custo Solicitante"
           pageSize={5}
         />

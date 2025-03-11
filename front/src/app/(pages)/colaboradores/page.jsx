@@ -150,7 +150,7 @@ export default function Home() {
           title="Colaboradores"                 
           pageSize={12}
           
-        />
+    />
         
       </div>
     </div>
