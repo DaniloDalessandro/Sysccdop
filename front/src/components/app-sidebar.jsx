@@ -67,7 +67,7 @@ const data = {
     },
     {
       title: "Auxilios",
-      url: "/",
+      url: "/auxilios",
       icon: SquareTerminal,
       isActive: true,
       

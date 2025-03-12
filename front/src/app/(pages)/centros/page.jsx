@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { DataTable } from "@/components/core/table/data-table";
-import { columns } from "./columnsolicitante";
-import {columns} from "./columnsgestor";
+import { columns as columnsSolicitante } from "./columnsolicitante";
+import { columns as columnsGestor } from "./columnsgestor";
 import Formgestor from "./formgestor";
 import Formsolicitante from "./formsolicitante";
 
@@ -34,109 +35,33 @@ const data = [
     atualizadoPor: "User 6",
     status: "Ativo",
   },
-  {
-    id: "4",
-    nome: "Nome 4",
-    criadoEm: "2023-04-01",
-    criadoPor: "User 7",
-    atualizadoEm: "2023-04-02",
-    atualizadoPor: "User 8",
-    status: "Inativo",
-  },
-  {
-    id: "5",
-    nome: "Nome 5",
-    criadoEm: "2023-05-01",
-    criadoPor: "User 9",
-    atualizadoEm: "2023-05-02",
-    atualizadoPor: "User 10",
-    status: "Ativo",
-  },
-  {
-    id: "6",
-    nome: "Nome 6",
-    criadoEm: "2023-06-01",
-    criadoPor: "User 11",
-    atualizadoEm: "2023-06-02",
-    atualizadoPor: "User 12",
-    status: "Inativo",
-  },
-  {
-    id: "7",
-    nome: "Nome 7",
-    criadoEm: "2023-07-01",
-    criadoPor: "User 13",
-    atualizadoEm: "2023-07-02",
-    atualizadoPor: "User 14",
-    status: "Ativo",
-  },
-  {
-    id: "8",
-    nome: "Nome 8",
-    criadoEm: "2023-08-01",
-    criadoPor: "User 15",
-    atualizadoEm: "2023-08-02",
-    atualizadoPor: "User 16",
-    status: "Inativo",
-  },
-  {
-    id: "9",
-    nome: "Nome 9",
-    criadoEm: "2023-09-01",
-    criadoPor: "User 17",
-    atualizadoEm: "2023-09-02",
-    atualizadoPor: "User 18",
-    status: "Ativo",
-  },
-  {
-    id: "10",
-    nome: "Nome 10",
-    criadoEm: "2023-10-01",
-    criadoPor: "User 19",
-    atualizadoEm: "2023-10-02",
-    atualizadoPor: "User 20",
-    status: "Inativo",
-  },
 ];
 
 export default function Home() {
   const [openGestor, setOpenGestor] = useState(false);
   const [openSolicitante, setOpenSolicitante] = useState(false);
-  
-  const handleAddGestor = () => {
-    setOpenGestor(true);   
 
-  };
-
-  const handleAddSolicitante = () => {
-    setOpenSolicitante(true);   
-
-  };
-
-
-  const handleCloseGestor = () => {
-    setOpenGestor(false);
-  }
-
-  const handleCloseSolicitante = () => {
-    setOpenSolicitante(false);
-  }
+  const handleAddGestor = () => setOpenGestor(true);
+  const handleAddSolicitante = () => setOpenSolicitante(true);
+  const handleCloseGestor = () => setOpenGestor(false);
+  const handleCloseSolicitante = () => setOpenSolicitante(false);
 
   return (
     <div className="container mx-auto py-1 px-2">
       <Formgestor open={openGestor} handleClose={handleCloseGestor} />
       <Formsolicitante open={openSolicitante} handleClose={handleCloseSolicitante} />
-      <div className="space-y-2">
+
+      <div className="space-y-4">
         <DataTable
-          columns={columnsgestor}
+          columns={columnsGestor}
           data={data}
           onAdd={handleAddGestor}
-          title="Centro de Custo Gestor"                 
+          title="Centro de Custo Gestor"
           pageSize={5}
-          
         />
+
         <DataTable
-          columns={columnssolicitante}
+          columns={columnsSolicitante}
           data={data}
           onAdd={handleAddSolicitante}
           title="Centro de Custo Solicitante"
