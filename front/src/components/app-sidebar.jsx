@@ -1,5 +1,6 @@
 "use client"
 
+import { BarChart, FileText, Users, Grid, User,HandHeart} from "lucide-react";
 import * as React from "react"
 import {
   AudioWaveform,
@@ -35,9 +36,9 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      name: "Minerva Contratos",
+      logo: FileText,
+      plan: "Emap",
     },
     {
       name: "Acme Corp.",
@@ -54,40 +55,40 @@ const data = {
     {
       title: "Dashboard",
       url: "/",
-      icon: SquareTerminal,
+      icon: BarChart,
       isActive: true,
       
     },
     {
       title: "Contratos",
       url: "/",
-      icon: SquareTerminal,
+      icon: FileText,
       isActive: true,
       
     },
     {
-      title: "Auxilios",
+      title: "Auxílios",
       url: "/auxilios",
-      icon: SquareTerminal,
+      icon: HandHeart,
       isActive: true,
       
     },
     {
       title: "Centros",
       url: "/centros",
-      icon: Bot,
+      icon: Users,
       
     },
     {
       title: "Setores",
       url: "/setores",
-      icon: BookOpen,
+      icon: Grid,
       
     },
     {
       title: "Colaboradores",
       url: "/colaboradores",
-      icon: Settings2,
+      icon: User,
       
     },
   ]
