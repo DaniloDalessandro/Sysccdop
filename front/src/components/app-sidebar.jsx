@@ -1,6 +1,6 @@
 "use client"
 
-import { BarChart, FileText, Users, Grid, User,HandHeart} from "lucide-react";
+import { BarChart, FileText, Users, Grid, User,HandHeart,DollarSign } from "lucide-react";
 import * as React from "react"
 import {
   AudioWaveform,
@@ -27,7 +27,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-// This is sample data.
+
 const data = {
   user: {
     name: "Danilo Costa",
@@ -87,6 +87,18 @@ const data = {
     },
     {
       title: "Colaboradores",
+      url: "/colaboradores",
+      icon: User,
+      
+    },
+    {
+      title: "Orçamentos",
+      url: "/colaboradores",
+      icon: DollarSign,
+      
+    },
+    {
+      title: "Linhas Orçamentarias",
       url: "/colaboradores",
       icon: User,
       
