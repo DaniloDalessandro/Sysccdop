@@ -1,6 +1,6 @@
 "use client"
 
-import { BarChart, FileText, Users, Grid, User,HandHeart,DollarSign } from "lucide-react";
+import { BarChart, FileText, Users, Grid, User,HandHeart,DollarSign,Receipt } from "lucide-react";
 import * as React from "react"
 import {
   AudioWaveform,
@@ -98,9 +98,9 @@ const data = {
       
     },
     {
-      title: "Linhas Orçamentarias",
+      title: "Linhas Orçamentárias",
       url: "/colaboradores",
-      icon: User,
+      icon: Receipt,
       
     },
   ]

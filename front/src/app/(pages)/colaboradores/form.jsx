@@ -139,7 +139,7 @@ export default function CollaboratorForm({ open, handleClose }) {
 
           {/* Rodapé */}
           <DialogFooter className="flex justify-between">
-            <Button type="button" onClick={handleClose} className="px-4 py-2 text-sm"> Cancelar </Button>
+            <Button type="button" onClick={handleClose} variant='outline' > Cancelar </Button>
             <Button type="submit" className="px-4 py-2 text-sm">Salvar</Button>
           </DialogFooter>
         </form>

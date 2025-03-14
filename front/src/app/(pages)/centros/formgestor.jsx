@@ -27,6 +27,7 @@ export default ({ open, handleClose }) => {
 
         {/* Rodapé com Botão Menor */}
         <DialogFooter>
+          <Button variant="outline" onClick={handleClose} className="px-4 py-2 text-sm">Cancelar</Button>
           <Button type="submit" className="px-4 py-2 text-sm">Salvar</Button>
         </DialogFooter>
       </DialogContent>
