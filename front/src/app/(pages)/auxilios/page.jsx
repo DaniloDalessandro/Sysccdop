@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { DataTable } from "@/components/core/table/data-table";
-import { columns as assistanceColumns } from "./columns"; // Verifique se as colunas estão importadas corretamente
-import AssistanceForm from "./form"; // Importação do formulário de assistência
+import { columns } from "./columns";
+import Form from "./form";
 
 // Dados de exemplo para a tabela
 const data = [
@@ -22,7 +22,7 @@ const data = [
   },
   {
     id: "2",
-    employee: "Maria Souza",
+    Funcionario: "Maria Souza",
     budget_line: "Orçamento 2024",
     type: "POS_GRADUACAO",
     total_amount: 8000,
@@ -35,35 +35,17 @@ const data = [
   },
 ];
 
-export default function AssistancePage() {
-  const [openForm, setOpenForm] = useState(false);
+export default function Home() {
+  const [open, setOpen] = useState(false);
 
-  // Função para abrir o formulário
-  const handleAdd = () => setOpenForm(true);
-
-  // Função para fechar o formulário
-  const handleClose = () => setOpenForm(false);
+  const handleAdd = useCallback(() => setOpen(true), []);
+  const handleClose = useCallback(() => setOpen(false), []);
 
   return (
-    <div className="container mx-auto py-4 px-6">
-      {/* Modal de formulário de assistência */}
-      {openForm && (
-        <div className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-96">
-            <AssistanceForm open={openForm} handleClose={handleClose} />
-          </div>
-        </div>
-      )}
-
-      <div className="space-y-4">
-        {/* DataTable para exibir os dados de assistência */}
-        <DataTable
-          columns={assistanceColumns} // As colunas da tabela, definidas em './columns'
-          data={data} // Dados que serão exibidos na tabela
-          onAdd={handleAdd} // Função que abre o formulário de novo item
-          title="Assistências"
-          pageSize={5} // Número de registros por página
-        />
+    <div className="container mx-auto py-1 px-2">
+      <Form open={open} handleClose={handleClose} />
+      <div className="space-y-2">
+        <DataTable columns={columns} data={data} onAdd={handleAdd} title="Auxílios" pageSize={12} />
       </div>
     </div>
   );

@@ -42,4 +42,20 @@ export const columns = [
     accessorKey: "status",
     header: "Status",
   },
+  {
+    accessorKey: "created_at",
+    header: "Criado em",
+  },
+  {
+    accessorKey: "created_by",
+    header: "Criado por",
+  },
+  {
+    accessorKey: "updated_at",
+    header: "Atualizado em",
+  },
+  {
+    accessorKey: "updated_by",
+    header: "Atualizado por",
+  },
 ];
